@@ -1,6 +1,8 @@
 #Custom ignore
 */migrations/00*.py
 media/
+core/settings/.local
+core/settings/.local-prod
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
