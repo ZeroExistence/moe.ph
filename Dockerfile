@@ -13,14 +13,14 @@ RUN pip install -r /code/requirements.txt
 RUN pip install gunicorn
 
 # Copy the current directory contents into the container at /code/
-COPY . /code/
+COPY . /app/
 # Set the working directory to /code/
-WORKDIR /code/
+WORKDIR /app/
 
 RUN python manage.py migrate
 
 RUN useradd wagtail
-RUN chown -R wagtail /code
+RUN chown -R wagtail /app
 USER wagtail
 
 EXPOSE 8000
