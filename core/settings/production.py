@@ -22,6 +22,6 @@ LOGGING = {
 }
 
 try:
-    from .local import *
+    from .local_prod import *
 except ImportError:
     pass
