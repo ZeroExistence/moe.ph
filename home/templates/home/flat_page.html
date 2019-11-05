@@ -22,9 +22,9 @@ Delete the line below if you're just getting started and want to remove the welc
         <section class="px3 mb4">
         {% for block in page.body %}
             {% if block.block_type == 'image' %}
-                {% image block.value fill-720x400 as image_data %}
+                {% image block.value min-720x720 as image_data %}
                 <figure>
-                <amp-img src="{{ image_data.url }}" width="720" height="400" alt="{{ image_data.alt }}" attribution="{{ image_data.alt }}" layout="responsive"></amp-img>
+                <amp-img src="{{ image_data.url }}" width="720" height="720" alt="{{ image_data.alt }}" attribution="{{ image_data.alt }}" layout="responsive"></amp-img>
                 <figcaption>{{ image_data.alt }}</figcaption>
                 </figure>
             {% elif block.block_type == 'code' %}
