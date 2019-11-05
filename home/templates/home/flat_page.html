@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-homepage{% endblock %}
+
+{% block extra_css %}
+
+{% comment %}
+Delete the line below if you're just getting started and want to remove the welcome screen!
+{% endcomment %}
+{% endblock extra_css %}
+
+{% block content %}
+    <main id="content" role="main" class="">
+      <article class="recipe-article">
+        <header>
+          <span class="ampstart-subtitle block px3 pt2 mb2">{{ page.get_parent.title | upper }}</span>
+          <h1 class="mb1 px3">{{ page.title }}</h1>
+        </header>
+
+        <section class="px3 mb4">
+        {% for block in page.body %}
+            {% if block.block_type == 'image' %}
+                {% image block.value fill-720x400 as image_data %}
+                <figure>
+                <amp-img src="{{ image_data.url }}" width="720" height="400" alt="{{ image_data.alt }}" attribution="{{ image_data.alt }}" layout="responsive"></amp-img>
+                <figcaption>{{ image_data.alt }}</figcaption>
+                </figure>
+            {% elif block.block_type == 'code' %}
+                <pre>{{ block.value }}</pre>
+            {% else %}
+                {% include_block block %}
+            {% endif %}
+        {% endfor %}
+        </section>
+        <p class="px3 mb4"><a href="{{ page.get_parent.url }}">Return to blog</a></p>
+      </article>
+
+    </main>
+{% endblock %}

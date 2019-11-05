@@ -1,3 +1,7 @@
+#Custom ignore
+*/migrations/00*.py
+media/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

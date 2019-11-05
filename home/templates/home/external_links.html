@@ -1,0 +1,7 @@
+<nav class="ampstart-footer-nav">
+  <ul class="list-reset flex flex-wrap mb3">
+  {% for external_link in external_links %}
+      <li class="px1"><a class="text-decoration-none ampstart-label" href="{{ external_link.url }}">{{ external_link.text }}</a></li>
+  {% endfor %}
+</ul>
+</nav>

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block meta %}
+<meta property="og:url" content="{{ request.build_absolute_uri }}" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="{{ self.get_site.site_name }}"/>
+<meta property="og:title" content="{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %} {% with self.get_site.site_name as site_name %}{% if site_name %}&middot; {{ site_name }}{% endif %}{% endwith %}" />
+<meta property="og:description" content="{{ page.intro }}" />
+<meta property="og:image" content="{% with firstpage.image as main_image %}{% image main_image.image fill-720x400 as image_data %}{{ image_data.url }}{% endwith %}" />
+
+<meta name="subject" content="{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %} {% with self.get_site.site_name as site_name %}{% if site_name %}&middot; {{ site_name }}{% endif %}{% endwith %}" />
+<meta name="description" content="{{ page.intro }}" />
+<meta name="url" content="{{ request.build_absolute_uri }}" />
+{% endblock %}
+
+{% block body_class %}template-blogindexpage{% endblock %}
+
+{% block content %}
+    <main id="content" role="main" class="">
+      <article class="recipe-article">
+        <header class="mb4">
+          <span class="ampstart-subtitle block px3 pt2 mb2">{{ page.title | upper }}</span>
+          <h3 class="mb1 px3">{{ page.intro | richtext }}</h3>
+
+  <!-- Start byline -->
+  <!-- End byline -->
+  </header>
+  {% for post in blogpages %}
+  <section class="px3 mb4 mt4">
+      <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
+      <address class="ampstart-byline clearfix px3 h5">
+        <time class="ampstart-byline-pubdate block bold my1" datetime="{{ page.date }}">{{ post.specific.date }}</time>
+      </address>
+      {% with post.specific.image as main_image %}
+          {% if main_image %}
+          {% image main_image fill-720x400 as image_data %}
+          <amp-img src="{{ image_data.url }}" width="720" height="400" alt="{{ image_data.alt }}" attribution="{{ main_image.caption }}" layout="responsive"></amp-img>
+          {% endif %}
+      {% endwith %}
+      <h4>{{ post.specific.intro }}</h4>
+    </section>
+  {% endfor %}
+      </article>
+    </main>
+{% endblock %}
