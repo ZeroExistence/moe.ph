@@ -87,7 +87,7 @@ class BlogTagIndexPage(Page):
             tag = request.GET.get('tag')
             blogpages = BlogPage.objects.in_site(request.site).live().filter(tags__name=tag).order_by('-first_published_at')
         else:
-            blogpages = BlogPage.objects.in_site(request.site).live().filter(tags__isnull=False).order_by('-first_published_at')
+            blogpages = BlogPage.objects.in_site(request.site).live().order_by('-first_published_at')
         # Update template context
         context = super().get_context(request)
         context['blogpages'] = blogpages
