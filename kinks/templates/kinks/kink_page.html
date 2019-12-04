@@ -1,0 +1,62 @@
+{% extends "kinks/kinks_base.html" %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block meta %}
+<meta property="og:url" content="{{ request.build_absolute_uri }}" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="{{ self.get_site.site_name }}"/>
+<meta property="og:title" content="{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %} {% with self.get_site.site_name as site_name %}{% if site_name %}&middot; {{ site_name }}{% endif %}{% endwith %}" />
+<meta property="og:description" content="{{ page.intro }}" />
+<meta property="og:image" content="{% with page.image as main_image %}{% image main_image.image fill-720x400 as image_data %}{{ image_data.url }}{% endwith %}" />
+
+<meta name="subject" content="{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %} {% with self.get_site.site_name as site_name %}{% if site_name %}&middot; {{ site_name }}{% endif %}{% endwith %}" />
+<meta name="description" content="{{ page.intro }}" />
+<meta name="url" content="{{ request.build_absolute_uri }}" />
+{% endblock %}
+
+{% block body_class %}template-blogpage{% endblock %}
+
+{% block content %}
+    <main id="content" role="main" class="">
+      <article class="recipe-article">
+        <header>
+          <span class="ampstart-subtitle block px3 pt2 mb2">{{ page.get_parent.title | upper }}</span>
+          <h3 class="px3">Author: {{ page.author }}</h3>
+          <h4 class="px3">Source: <a href={{ page.source }}>{{ page.source }}</a></h4>
+
+  <!-- Start byline -->
+  <address class="ampstart-byline clearfix mb4 px3 h5">
+    <time class="ampstart-byline-pubdate block bold my1" datetime="{{ page.date }}">{{ page.date }}</time>
+  </address>
+  <!-- End byline -->
+        </header>
+        <section class="px3 mb4">
+
+        </section>
+
+        <section class="px3 mb4">
+        <h4 class="mb3">{{ page.intro }}</h4>
+        {% for images in page.kink_gallery_images.all %}
+        {% image images.image max-640x640 format-jpeg as image_data %}
+              <amp-img src="{{ image_data.url }}" width="{{ image_data.width }}" height="{{ image_data.height }}" alt="{{ image_data.alt }}" attribution="{{ image_data.alt }}" layout="responsive" media="(max-width: 640px)"></amp-img>
+        {% image images.image max-1280x1280 format-jpeg as image_data %}
+              <amp-img src="{{ image_data.url }}" width="{{ image_data.width }}" height="{{ image_data.height }}" alt="{{ image_data.alt }}" attribution="{{ image_data.alt }}" layout="responsive" media="(min-width: 641px)"></amp-img>
+        {% image images.image original as image_data %}
+          <a href={{ image_data.url }}><h4 class="mb3">View Fullsize</h4></a>
+        {% endfor %}
+        </section>
+
+        <p class="px3 mb4"><a href="{{ page.get_parent.url }}">Return to home page</a></p>
+      </article>
+
+      {% if page.tags.all.count %}
+      <section class="px3 mb4">
+        <h3>Tags:</h3>
+        {% for tag in page.tags.all %}
+            <a href="{% slugurl 'tags' %}?tag={{ tag }}"><button type="button">{{ tag }}</button></a>
+        {% endfor %}
+        </section>
+      {% endif %}
+    </main>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-blogindexpage{% endblock %}
+
+{% block content %}
+    <main id="content" role="main" class="">
+      <article class="recipe-article">
+        <header class="mb4">
+          <span class="ampstart-subtitle block px3 pt2 mb2">{{ page.get_parent.title | upper }}</span>
+          {% if kinkpages %}
+              <h3 class="mb1 px3">Showing tagged pages: "{{ request.GET.tag }}"</h3>
+          {% else %}
+              <h3 class="mb1 px3">No tags found.</h3>
+          {% endif %}
+
+  <!-- Start byline -->
+  <!-- End byline -->
+  </header>
+  {% if kinkpages %}
+  {% for post in kinkpages %}
+  <section class="px3 mb4 mt4">
+      <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
+      <address class="ampstart-byline clearfix px3 h5">
+        <time class="ampstart-byline-pubdate block bold my1" datetime="{{ page.date }}">{{ post.specific.date }}</time>
+      </address>
+      <a href="{% pageurl post %}">
+      {% with post.specific.kink_gallery_images.first.image as main_image %}
+          {% image main_image max-640x640 format-jpeg as image_data %}
+          <amp-img src="{{ image_data.url }}" width="{{ image_data.width }}" height="{{ image_data.height }}" alt="{{ image_data.alt }}" attribution="{{ main_image.caption }}" layout="responsive" media="(max-width: 640px)"></amp-img>
+          {% image main_image max-1280x1280 format-jpeg as image_data %}
+          <amp-img src="{{ image_data.url }}" width="{{ image_data.width }}" height="{{ image_data.height }}" alt="{{ image_data.alt }}" attribution="{{ main_image.caption }}" layout="responsive" media="(min-width: 641px)"></amp-img>
+      {% endwith %}
+      </a>
+    </section>
+  {% empty %}
+      <section class="px3 mb4 mt4">
+        <h2>No pages found with that tag.</h2>
+        </section>
+  {% endfor %}
+
+  {% else %}
+    <section class="px3 mb4 mt4">
+      <h2>No pages found with that tag.</h2>
+      </section>
+  {% endif %}
+      </article>
+    </main>
+{% endblock %}
