@@ -1,3 +1,17 @@
 {% extends "base.html" %}
 
-{% block style %}main{max-width:1024px;margin:0 auto}{% endblock %}
+{% block customamp%}
+<script async custom-element="amp-user-notification" src="https://cdn.ampproject.org/v0/amp-user-notification-0.1.js"></script>
+<script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+{% endblock %}
+
+{% block style %}main{max-width:1024px;margin:0 auto} amp-user-notification.sample-notification {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+  amp-user-notification.sample-notification > button {
+    min-width: 80px;
+  }{% endblock %}

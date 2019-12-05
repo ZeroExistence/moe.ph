@@ -44,4 +44,12 @@
   {% endfor %}
       </article>
     </main>
+
+<amp-user-notification id="my-notification"
+  class="sample-notification"
+  layout="nodisplay">
+  <h1>Adults only (18+)</h1>
+  <h4>This website contains adult material and is only suitable for those 18 years or older. By clicking the "Enter" button below, you affirm that you are at least 18 years of age.</h4>
+  <button on="tap:my-notification.dismiss">Enter</button>
+</amp-user-notification>
 {% endblock %}
