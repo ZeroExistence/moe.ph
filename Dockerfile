@@ -4,7 +4,7 @@ LABEL maintainer="admin@moe.ph"
 
 # Set environment varibles
 ENV PYTHONUNBUFFERED 1
-ENV DJANGO_ENV dev
+ENV DJANGO_ENV prod
 
 COPY ./requirements.txt /app/requirements.txt
 RUN pip install --upgrade pip
