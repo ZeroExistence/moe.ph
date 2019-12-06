@@ -9,6 +9,8 @@ from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
 
 from django.contrib.contenttypes.models import ContentType
 
+from urllib.parse import urlparse
+
 # Create your models here.
 
 class KinkPageTag(TaggedItemBase):
@@ -54,6 +56,10 @@ class KinkPage(Page):
         ], heading="Work Information"),
         InlinePanel('kink_gallery_images', label="Gallery images"),
     ]
+
+    def get_domain(self):
+        source = urlparse(self.source)
+        return source.netloc
 
 
 class KinkPageGalleryImage(Orderable):
