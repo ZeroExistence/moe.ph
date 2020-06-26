@@ -1,5 +1,5 @@
 # Use an official Python runtime as a parent image
-FROM python:rc-slim-buster
+FROM python:slim-buster
 LABEL maintainer="admin@moe.ph"
 
 # Set environment varibles
@@ -10,14 +10,13 @@ COPY ./requirements.txt /app/requirements.txt
 RUN pip install --upgrade pip
 # Install any needed packages specified in requirements.txt
 RUN pip install -r /app/requirements.txt
-RUN pip install gunicorn
 
 # Copy the current directory contents into the container at /app/
 COPY . /app/
 # Set the working directory to /app/
 WORKDIR /app/
 
-RUN python manage-prod.py migrate
+RUN python manage-prod.py makemigrations && python manage-prod.py migrate
 
 RUN useradd wagtail
 RUN chown -R wagtail /app
