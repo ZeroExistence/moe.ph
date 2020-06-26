@@ -7,11 +7,11 @@
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="{{ self.get_site.site_name }}"/>
 <meta property="og:title" content="{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %} {% with self.get_site.site_name as site_name %}{% if site_name %}&middot; {{ site_name }}{% endif %}{% endwith %}" />
-<meta property="og:description" content="{{ page.intro }}" />
+<meta property="og:description" content="{{ page.title }} by {{ page.author }}" />
 <meta property="og:image" content="{% with page.image as main_image %}{% image main_image.image fill-720x400 as image_data %}{{ image_data.url }}{% endwith %}" />
 
 <meta name="subject" content="{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %} {% with self.get_site.site_name as site_name %}{% if site_name %}&middot; {{ site_name }}{% endif %}{% endwith %}" />
-<meta name="description" content="{{ page.intro }}" />
+<meta name="description" content="{{ page.title }} by {{ page.author }}" />
 <meta name="url" content="{{ request.build_absolute_uri }}" />
 {% endblock %}
 
@@ -23,9 +23,9 @@
         <header>
           <span class="ampstart-subtitle block px3 pt2 mb2">{{ page.get_parent.title | upper }}</span>
           <hr/>
-          <h2 class="px3">Title: {{ page.title }}</h2>
-          <h3 class="px3">Author: {{ page.author }}</h3>
-          <h3 class="px3">Publisher: {{ page.publisher }}</h3>
+          <h1 class="px3 mb2">Title: {{ page.title }}</h1>
+          <h2 class="px3">Author: {{ page.author }}</h2>
+          <h2 class="px3">Publisher: {{ page.publisher }}</h2>
 
   <!-- Start byline -->
   <!-- End byline -->
@@ -35,7 +35,6 @@
         </section>
 
         <section class="px3 mb4">
-        <h4 class="mb3">{{ page.intro }}</h4>
         <amp-carousel
         id="carousel-with-preview"
         width="960"
