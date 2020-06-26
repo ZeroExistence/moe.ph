@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block customamp%}
+<script async custom-element="amp-user-notification" src="https://cdn.ampproject.org/v0/amp-user-notification-0.1.js"></script>
+<script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+{% endblock %}
+
+{% block style %}main{max-width:1024px;margin:0 auto} amp-user-notification.sample-notification {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+  amp-user-notification.sample-notification > button {
+    min-width: 80px;
+  }{% endblock %}
+
+{% block footer %}
+<amp-user-notification id="my-notification"
+  class="sample-notification"
+  layout="nodisplay">
+  <h3>Adults only (18+)</h3>
+  <h4>This website contains adult material and is only suitable for those 18 years or older. By clicking the "Enter" button below, you affirm that you are at least 18 years of age.</h4>
+  <button on="tap:my-notification.dismiss">Enter</button>
+</amp-user-notification>
+{% endblock %}
