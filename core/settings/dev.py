@@ -11,6 +11,18 @@ ALLOWED_HOSTS = ['*']
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+INSTALLED_APPS += [
+	'wagtail.api.v2',
+	'rest_framework',
+	'corsheaders',
+]
+
+MIDDLEWARE += [
+	'corsheaders.middleware.CorsMiddleware',
+]
+
+CORS_ORIGIN_ALLOW_ALL = True
+
 try:
     from .local import *
 except ImportError:

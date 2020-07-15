@@ -13,6 +13,8 @@ from wagtail.search import index
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.snippets.models import register_snippet
 
+from wagtail.api import APIField
+
 
 class BlogIndexPage(Page):
     intro = models.CharField(max_length=250)
@@ -71,6 +73,16 @@ class BlogPage(Page):
         ImageChooserPanel('image'),
         StreamFieldPanel('body'),
     ]
+    
+    api_fields = [
+		APIField('date'),
+		APIField('intro'),
+		APIField('image'),
+		APIField('body'),
+		APIField('tags'),
+    ]
+
+
 
 
 class BlogTagIndexPage(Page):
