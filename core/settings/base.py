@@ -44,6 +44,8 @@ INSTALLED_APPS = [
 
     'modelcluster',
     'taggit',
+    'wagtail.api.v2',
+    'corsheaders',
 
     'wagtail.contrib.modeladmin',
 
@@ -66,6 +68,7 @@ MIDDLEWARE = [
 
     'wagtail.core.middleware.SiteMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -168,3 +171,9 @@ WAGTAIL_SITE_NAME = "moe.ph"
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = 'https://moe.ph'
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOW_METHODS = [
+    'GET',
+]
