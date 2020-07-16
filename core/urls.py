@@ -7,8 +7,10 @@ from wagtail.core import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
 from search import views as search_views
+from .api import api_router
 
 urlpatterns = [
+    url(r'^api/v2/', api_router.urls),
     url(r'^documents/', include(wagtaildocs_urls)),
 
     url(r'^search/$', search_views.search, name='search'),
